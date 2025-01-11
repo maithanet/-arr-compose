@@ -75,7 +75,7 @@ services:
         container_name: overseerr
         environment: 
             - LOG_LEVEL=info
-            - TZ=Europe/Paris
+            - TZ=Europe/Oslo
         ports:
             - 5055:5055
         volumes: 
@@ -99,7 +99,7 @@ services:
         environment: 
             - PUID=1000
             - PGID=1000
-            - TZ=Europe/Paris
+            - TZ=Europe/Oslo
         volumes: 
             - ./heimdall:/config
         depends_on:
@@ -123,7 +123,7 @@ services:
         environment:
             - PUID=1000
             - PGID=1000
-            - TZ=Europe/paris
+            - TZ=Europe/Oslo
             - DOCKER_MODS=ghcr.io/gilbn/theme.park:sonarr
             - TP_THEME=organizr
         volumes:
@@ -146,37 +146,37 @@ services:
             - "traefik"
         restart: unless-stopped
 
-    #############################################
-    # uncomment to enable second sonarr instance for anime
-    # sonarr_anime:
-    #     image: ghcr.io/linuxserver/sonarr:latest
-    #     container_name: sonarr_anime
-    #     environment:
-    #         - PUID=1000
-    #         - PGID=1000
-    #         - TZ=Europe/paris
-    #         - DOCKER_MODS=ghcr.io/gilbn/theme.park:sonarr
-    #         - TP_THEME=organizr
-    #     volumes:
-    #         - ./sonarr_anime/data:/config
-    #         - /mounted:/video                                                   # Edit here to change the mount point
-    #     ports:
-    #         - 8787:7878
-    #         - 9898:8989
-    #     networks:
-    #         - traefik-public
-    #     labels:
-    #         - "traefik.enable=true"
-    #         - "traefik.http.routers.sonarr_anime.entryPoints=websecure"
-    #         - "traefik.http.routers.sonarr_anime.tls.certResolver=letsEncrypt"
-    #         - "traefik.http.routers.sonarr_anime.rule=Host(`sonarr.domain.name`)" # Edit here to change the domain name
-    #         - "traefik.http.services.sonarr_anime.loadbalancer.server.port=8989"
-    #         - "traefik.docker.network=traefik-public"
-    #         - "traefik.port=9898"
-    #     depends_on:
-    #         - "traefik"
-    #     restart: unless-stopped
-    ################################################
+    
+    
+     sonarr_anime:
+         image: ghcr.io/linuxserver/sonarr:latest
+         container_name: sonarr_anime
+         environment:
+             - PUID=1000
+             - PGID=1000
+             - TZ=Europe/Oslo
+             - DOCKER_MODS=ghcr.io/gilbn/theme.park:sonarr
+             - TP_THEME=organizr
+         volumes:
+             - ./sonarr_anime/data:/config
+             - /mounted:/video                                                   # Edit here to change the mount point
+         ports:
+             - 8787:7878
+             - 9898:8989
+         networks:
+             - traefik-public
+         labels:
+             - "traefik.enable=true"
+             - "traefik.http.routers.sonarr_anime.entryPoints=websecure"
+             - "traefik.http.routers.sonarr_anime.tls.certResolver=letsEncrypt"
+             - "traefik.http.routers.sonarr_anime.rule=Host(`sonarr.domain.name`)" # Edit here to change the domain name
+             - "traefik.http.services.sonarr_anime.loadbalancer.server.port=8989"
+             - "traefik.docker.network=traefik-public"
+             - "traefik.port=9898"
+         depends_on:
+             - "traefik"
+         restart: unless-stopped
+    
     
     bazarr:
         image: lscr.io/linuxserver/bazarr
@@ -210,7 +210,7 @@ services:
         environment:
             - PUID=1000
             - PGID=1000
-            - TZ=Europe/paris
+            - TZ=Europe/Oslo
         volumes:
             - ./readarr/data:/config
             - /mounted:/books                                                   # Edit here to change the mount point
@@ -236,7 +236,7 @@ services:
         environment:
             - PUID=1000
             - PGID=1000
-            - TZ=Europe/paris
+            - TZ=Europe/Oslo
         volumes:
             - ./lidarr/data:/config
             - /mounted:/music                                                   # Edit here to change the mount point
@@ -262,7 +262,7 @@ services:
         environment:
             - PUID=1000
             - PGID=1000
-            - TZ=Europe/paris
+            - TZ=Europe/Oslo
         volumes:
             - ./radarr/data:/config
             - /mounted:/video                                                   # Edit here to change the mount point
@@ -284,7 +284,7 @@ services:
         environment:
         - PUID=1000
         - PGID=1000
-        - TZ=Europe/paris
+        - TZ=Europe/Oslo
         volumes:
         - ./prowlarr/data:/config
         # network_mode: "host"
@@ -306,7 +306,7 @@ services:
         - LOG_LEVEL=${LOG_LEVEL:-info}
         - LOG_HTML=${LOG_HTML:-false}
         - CAPTCHA_SOLVER=${CAPTCHA_SOLVER:-none}
-        - TZ=Europe/Paris
+        - TZ=Europe/Oslo
         # network_mode: "host"
         ports:
         - "${PORT:-8191}:8191"
