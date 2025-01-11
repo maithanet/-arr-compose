@@ -275,6 +275,30 @@ services:
             - "traefik.http.services.radarr.loadbalancer.server.port=7878"
         depends_on:
             - "traefik"
+
+     radarr_anime:
+        image: linuxserver/radarr:latest
+        container_name: radarr_anime
+        environment:
+            - PUID=1000
+            - PGID=1000
+            - TZ=Europe/Oslo
+        volumes:
+            - ./radarr/data:/config
+            - /mounted:/video                                                   # Edit here to change the mount point
+        ports:
+            - 7677:7878
+        restart: unless-stopped
+        labels:
+            - "traefik.enable=true"
+            - "traefik.http.routers.radarr.entryPoints=websecure"
+            - "traefik.http.routers.radarr.tls.certResolver=letsEncrypt"
+            - "traefik.http.routers.radarr.rule=Host(`radarr.domain.name`)" # Edit here to change the domain name
+            - "traefik.http.services.radarr.loadbalancer.server.port=7877"
+        depends_on:
+            - "traefik"
+
+            
     
     prowlarr:
         image: ghcr.io/linuxserver/prowlarr:develop
